@@ -1,0 +1,89 @@
+/* Realistic shooting stars for hero section */
+.shooting-stars-bg {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+}
+.shooting-star-realistic {
+  position: absolute;
+  left: var(--star-start-x);
+  top: var(--star-start-y);
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 2;
+  animation: shooting-star-realistic-move var(--star-duration) linear var(--star-delay) 1;
+}
+.star-dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(var(--star-size) * 2.2);
+  height: calc(var(--star-size) * 2.2);
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 60%, #c084fc 100%);
+  box-shadow: 0 0 32px 8px #fff, 0 0 64px 16px #c084fc99;
+  z-index: 2;
+  opacity: 1;
+}
+.star-trail {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3.5px;
+  height: 120px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #fff 0%, #c084fc 60%, transparent 100%);
+  filter: blur(0.5px) drop-shadow(0 0 16px #c084fc);
+  opacity: 0.85;
+  /* The trail is perpendicular to the velocity vector (motion direction) */
+  transform: translate(-50%, -50%) rotate(var(--star-angle, -18deg));
+  z-index: 1;
+}
+.shooting-star-streak {
+  position: absolute;
+  height: 2.5px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #fff 0%, #c084fc 60%, transparent 100%);
+  box-shadow: 0 0 16px 4px #c084fc99, 0 0 32px 8px #fff4;
+  opacity: 0.85;
+  animation: shooting-star-streak-move 1s linear forwards;
+  will-change: opacity, transform;
+}
+@keyframes shooting-star-realistic-move {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(var(--star-angle, -18deg));
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+    transform: translate(calc(var(--star-end-x) - var(--star-start-x)), calc(var(--star-end-y) - var(--star-start-y))) rotate(var(--star-angle, -18deg));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--star-end-x) - var(--star-start-x)), calc(var(--star-end-y) - var(--star-start-y))) rotate(var(--star-angle, -18deg));
+  }
+}
+@keyframes shooting-star-streak-move {
+  0% {
+    opacity: 0;
+    transform: translateX(0) scaleX(0.2) scaleY(1) rotate(var(--angle, 0deg));
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(0) scaleX(1) scaleY(1) rotate(var(--angle, 0deg));
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(60px) scaleX(1) scaleY(1) rotate(var(--angle, 0deg));
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(120px) scaleX(1) scaleY(1) rotate(var(--angle, 0deg));
+  }
+}
